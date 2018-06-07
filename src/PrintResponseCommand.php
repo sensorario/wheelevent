@@ -12,7 +12,7 @@ class PrintResponseCommand extends KernelCommand implements Command
         $router = $kernel->getRouter();
         $request = $kernel->getRequest();
 
-        $response = $router->controller($request->getUri());
+        $response = $router->controller($request);
         http_response_code ($response->getHttpStatusCode());
         echo $response->getContent();
     }

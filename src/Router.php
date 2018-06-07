@@ -2,18 +2,19 @@
 
 class Router
 {
-    public function controller($uri)
+    public function controller($request)
     {
         $uris = [[
             'path' => '/',
-            'controller' => DefaultController::class,
-            'action' => 'default',
+            'controller' => RestController::class,
         ]];
 
         foreach ($uris as $endpoint) {
-            if ($endpoint['path'] === $uri) {
+            if ($endpoint['path'] === $request->getUri()) {
                 $controller = new $endpoint['controller']();
-                return $controller->{$endpoint['action']}();
+                if (method_exists($controller, $request->getMethod())) {
+                    return $controller->{$request->getMethod()}();
+                }
             }
         }
 
