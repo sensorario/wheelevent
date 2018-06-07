@@ -1,9 +1,31 @@
 # WheelEvent
 
-> GET http://localhost:8001/
-< 200
-< {"success":"true"}
+## Invalid Request
 
-> GET http://localhost:8001/fake
-< 400
-< {"success":"false"}
+### Request
+
+```
+> GET /invalid HTTP/1.1
+```
+
+### Response
+
+```
+< HTTP/1.1 400 Bad Request
+{"success":"false"}
+```
+
+## Valid Request
+
+### Request
+
+```
+> GET / HTTP/1.1
+```
+
+### Response
+
+```
+< HTTP/1.1 200 OK
+{"success":"true"}
+```
