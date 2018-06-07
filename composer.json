@@ -1,0 +1,15 @@
+{
+    "name": "sensorario/wheelevent",
+    "authors": [
+        {
+            "name": "Simone Gentili",
+            "email": "sensorario@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "": ["src"]
+        }
+    }
+}
