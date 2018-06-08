@@ -5,7 +5,8 @@ class InfoController
     public function get()
     {
         return new Response([
-            'foo' => 'bar',
+            'class' => __CLASS__,
+            'method' => __METHOD__,
         ], 200);
     }
 }
