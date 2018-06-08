@@ -7,6 +7,9 @@ class Router
         $uris = [[
             'path' => '/',
             'controller' => RestController::class,
+        ],[
+            'path' => '/info',
+            'controller' => InfoController::class,
         ]];
 
         foreach ($uris as $endpoint) {

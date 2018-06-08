@@ -4,11 +4,17 @@ class RestController
 {
     public function put()
     {
-        return new Response(200);
+        return new Response([
+            'class' => __CLASS__,
+            'method' => __METHOD__,
+        ], 200);
     }
 
     public function get()
     {
-        return new Response(200);
+        return new Response([
+            'class' => __CLASS__,
+            'method' => __METHOD__,
+        ], 200);
     }
 }

@@ -4,9 +4,12 @@ class Response
 {
     private $code;
 
-    public function __construct($code = 200)
+    private $content;
+
+    public function __construct(array $content, $code = 200)
     {
         $this->code = $code;
+        $this->content = $content;
     }
 
     public function getHttpStatusCode()
@@ -16,8 +19,6 @@ class Response
 
     public function getContent()
     {
-        return json_encode([
-            'success' => 'true',
-        ]);
+        return json_encode($this->content);
     }
 }
