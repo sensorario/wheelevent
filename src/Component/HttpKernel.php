@@ -19,15 +19,9 @@ class HttpKernel
         $this->events = new Dispatcher($this);
         $this->router = new Router();
 
-        $this->events->attach(
-            RequestEvent::class,
-            new StoreRequestCommand($this)
-        );
-
-        $this->events->attach(
-            ResponseEvent::class,
-            new PrintResponseCommand($this)
-        );
+        /** @todo attach events inside configuration file */
+        $this->events->attach(RequestEvent::class, new StoreRequestCommand($this));
+        $this->events->attach(ResponseEvent::class, new PrintResponseCommand($this));
     }
 
     /** @todo move events out from here */
@@ -35,11 +29,8 @@ class HttpKernel
     /** @todo define output events */
     public function run(Request $request)
     {
-        $this->events->dispatch(
-            RequestEvent::class,
-            ['arguments' => ['request' => $request]]
-        );
-
+        /** @todo store ordered lifecicle events */
+        $this->events->dispatch(RequestEvent::class, ['arguments' => ['request' => $request]]);
         $this->events->dispatch(SecurityEvent::class, []);
         $this->events->dispatch(ResponseEvent::class, []);
     }
