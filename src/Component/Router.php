@@ -2,6 +2,8 @@
 
 namespace Component;
 
+use Response\FailureResponse;
+
 class Router
 {
     public function controller($request)
@@ -12,7 +14,7 @@ class Router
             if ($endpoint['path'] === $request->getUri()) {
                 $controller = new $endpoint['controller']();
                 if (method_exists($controller, $request->getMethod())) {
-                    return $controller->{$request->getMethod()}();
+                    return $controller->{$request->getMethod()}($request);
                 }
             }
         }

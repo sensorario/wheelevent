@@ -23,4 +23,10 @@ class Request
     {
         return strtolower($this->method);
     }
+
+    public function getJson()
+    {
+        $content = file_get_contents('php://input');
+        return json_decode($content);
+    }
 }

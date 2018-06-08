@@ -1,5 +1,7 @@
 <?php
 
+namespace Response;
+
 class FailureResponse
 {
     private $code;
