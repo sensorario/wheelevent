@@ -1,5 +1,9 @@
 <?php
 
+namespace Command;
+
+use Component\Dispatcher;
+
 abstract class KernelCommand
 {
     protected $dispatcher;

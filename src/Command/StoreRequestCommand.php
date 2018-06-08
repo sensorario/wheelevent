@@ -1,5 +1,7 @@
 <?php
 
+namespace Command;
+
 class StoreRequestCommand extends KernelCommand implements Command
 {
     public function execute($meta)

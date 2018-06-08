@@ -1,5 +1,11 @@
 <?php
 
+namespace Component;
+
+use Command\PrintResponseCommand;
+use Command\StoreRequestCommand;
+use Request\Request;
+
 class HttpKernel
 {
     private $request;
@@ -24,6 +30,9 @@ class HttpKernel
         );
     }
 
+    /** @todo move events out from here */
+    /** @todo define input events */
+    /** @todo define output events */
     public function run(Request $request)
     {
         $this->events->dispatch(

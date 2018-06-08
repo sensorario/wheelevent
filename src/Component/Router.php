@@ -1,16 +1,12 @@
 <?php
 
+namespace Component;
+
 class Router
 {
     public function controller($request)
     {
-        $uris = [[
-            'path' => '/',
-            'controller' => RestController::class,
-        ],[
-            'path' => '/info',
-            'controller' => InfoController::class,
-        ]];
+        $uris = require __DIR__ . '/../../config/router.php';
 
         foreach ($uris as $endpoint) {
             if ($endpoint['path'] === $request->getUri()) {

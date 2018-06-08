@@ -2,5 +2,5 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-(new HttpKernel())
-    ->run(new Request());
+(new Component\HttpKernel())
+    ->run(new Request\Request());

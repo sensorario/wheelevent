@@ -1,5 +1,9 @@
 <?php
 
+namespace Component;
+
+use Command\Command;
+
 class Dispatcher
 {
     private $watcher = [];

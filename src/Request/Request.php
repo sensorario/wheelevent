@@ -1,5 +1,7 @@
 <?php
 
+namespace Request;
+
 class Request
 {
     private $uri;

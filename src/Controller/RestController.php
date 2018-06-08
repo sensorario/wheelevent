@@ -1,5 +1,9 @@
 <?php
 
+namespace Controller;
+
+use Response\Response;
+
 class RestController
 {
     public function put()
