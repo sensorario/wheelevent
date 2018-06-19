@@ -2,7 +2,7 @@
 
 namespace Command;
 
-class PrintResponseCommand extends KernelCommand implements Command
+class PrintResponseCommand extends Base\KernelCommand implements PubApi\Command
 {
     public function execute($meta)
     {

@@ -2,12 +2,11 @@
 
 namespace Command;
 
-class StoreRequestCommand extends KernelCommand implements Command
+class StoreRequestCommand extends Base\KernelCommand implements PubApi\Command
 {
     public function execute($meta)
     {
-        $arguments = $meta['arguments'];
-        $request = $arguments['request'];
+        $request = $meta['request'];
         $this->dispatcher->getKernel()->setRequest($request);
     }
 }

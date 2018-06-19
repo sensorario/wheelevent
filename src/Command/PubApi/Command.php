@@ -1,6 +1,6 @@
 <?php
 
-namespace Command;
+namespace Command\PubApi;
 
 interface Command
 {

@@ -2,7 +2,7 @@
 
 namespace Component;
 
-use Command\Command;
+use Command\PubApi\Command;
 
 class Dispatcher
 {

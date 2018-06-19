@@ -12,7 +12,7 @@
 
 ```
 < HTTP/1.1 400 Bad Request
-{"success":"false"}
+< {"success":"false","definition":"Not Found"}
 ```
 
 ## Valid Request
@@ -27,5 +27,29 @@
 
 ```
 < HTTP/1.1 200 OK
-{"success":"true"}
+< {
+<   "class":"Controller\\RestController",
+<   "method":"Controller\\RestController::get"
+< }
 ```
+
+## Forbidden request
+
+### Request
+
+```
+> GET /protected HTTP/1.1
+```
+
+### Response
+
+```
+> {
+>   "success":"false",
+>   "definition":"Forbidden"
+> }
+```
+
+## Get Protected route:
+
+> curl http://localhost:8001/protected -H 'Authorization: Wheel Value'

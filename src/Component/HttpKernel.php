@@ -2,6 +2,7 @@
 
 namespace Component;
 
+use Command\LogRequestCommand;
 use Command\PrintResponseCommand;
 use Command\StoreRequestCommand;
 use Request\Request;
@@ -19,9 +20,16 @@ class HttpKernel
         $this->events = new Dispatcher($this);
         $this->router = new Router();
 
-        /** @todo attach events inside configuration file */
-        $this->events->attach(RequestEvent::class, new StoreRequestCommand($this));
-        $this->events->attach(ResponseEvent::class, new PrintResponseCommand($this));
+        $this->router->protectRouteWith(new Security());
+
+        $this->attach(RequestEvent::class, new StoreRequestCommand());
+        $this->attach(RequestEvent::class, new LogRequestCommand());
+        $this->attach(ResponseEvent::class, new PrintResponseCommand());
+    }
+
+    public function attach($event, $command)
+    {
+        $this->events->attach($event, $command);
     }
 
     /** @todo move events out from here */
@@ -30,7 +38,7 @@ class HttpKernel
     public function run(Request $request)
     {
         /** @todo store ordered lifecicle events */
-        $this->events->dispatch(RequestEvent::class, ['arguments' => ['request' => $request]]);
+        $this->events->dispatch(RequestEvent::class, ['request' => $request]);
         $this->events->dispatch(SecurityEvent::class, []);
         $this->events->dispatch(ResponseEvent::class, []);
     }
