@@ -10,31 +10,31 @@ use Request\Request;
 class HttpKernel
 {
     private static $events = [
-        'request_received',
-        'response_sent',
+        'request.received',
+        'response.sent',
     ];
 
     private $request;
 
-    private $dispatcher;
+    private $events;
 
     private $router;
 
     public function __construct()
     {
-        $this->dispatcher = new Dispatcher($this);
+        $this->events = new Dispatcher($this);
         $this->router = new Router();
 
         $this->router->protectRouteWith(new Security());
 
-        $this->attach('request_received', new StoreRequestCommand());
-        $this->attach('request_received', new LogRequestCommand());
-        $this->attach('response_sent', new PrintResponseCommand());
+        $this->attach('request.received', new StoreRequestCommand());
+        $this->attach('request.received', new LogRequestCommand());
+        $this->attach('response.sent', new PrintResponseCommand());
     }
 
     public function attach($event, $command)
     {
-        $this->dispatcher->attach($event, $command);
+        $this->events->attach($event, $command);
     }
 
     /** @todo move events out from here */
@@ -43,8 +43,9 @@ class HttpKernel
     public function run(Request $request)
     {
         /** @todo store ordered lifecicle events */
-        $this->dispatcher->dispatch('request_received', ['request' => $request]);
-        $this->dispatcher->dispatch('response_sent', []);
+        $this->events->dispatch('request.received', ['request' => $request]);
+        $this->events->dispatch(SecurityEvent::class, []);
+        $this->events->dispatch('response.sent', []);
     }
 
     public function setRequest(Request $request)
