@@ -2,7 +2,7 @@
 
 namespace Response;
 
-class Response
+class Response implements PubApi\GenericResponse
 {
     private $code;
 

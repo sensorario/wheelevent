@@ -3,10 +3,13 @@
 namespace Component;
 
 use Command\LogRequestCommand;
+use Command\LogResponseCommand;
 use Command\PrintResponseCommand;
 use Command\StoreRequestCommand;
 use Request\Request;
+use Response\PubApi\GenericResponse;
 
+/** @todo rename to httpflow */
 class HttpKernel
 {
     private static $events = [
@@ -15,6 +18,8 @@ class HttpKernel
     ];
 
     private $request;
+
+    private $response;
 
     private $dispatcher;
 
@@ -30,6 +35,7 @@ class HttpKernel
         $this->attach('request_received', new StoreRequestCommand());
         $this->attach('request_received', new LogRequestCommand());
         $this->attach('response_sent', new PrintResponseCommand());
+        $this->attach('response_sent', new LogResponseCommand());
     }
 
     public function attach($event, $command)
@@ -60,5 +66,15 @@ class HttpKernel
     public function getRouter()
     {
         return $this->router;
+    }
+
+    public function setResponse(GenericResponse $response)
+    {
+        $this->response = $response;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
     }
 }

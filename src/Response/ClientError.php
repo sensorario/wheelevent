@@ -2,7 +2,7 @@
 
 namespace Response;
 
-class ClientError
+class ClientError implements PubApi\GenericResponse
 {
     private static $definition = [
         403 => 'Forbidden',
