@@ -15,16 +15,20 @@ class Dispatcher
         $this->kernel = $kernel;
     }
 
-    public function attach($event, Command $observer)
+    public function attach($event, $commandClass)
     {
-        $this->watcher[$event][] = $observer;
+        $this->watcher[$event][] = $commandClass;
     }
 
     public function dispatch($event, $meta)
     {
         if (!isset($this->watcher[$event])) { return; }
 
-        foreach ($this->watcher[$event] as $observer) {
+        foreach ($this->watcher[$event] as $commandClass) {
+            $observer = new $commandClass(
+                new Clock()
+            );
+
             $observer->setKernel($this);
             $observer->execute($meta);
         }

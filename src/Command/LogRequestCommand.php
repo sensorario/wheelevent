@@ -4,16 +4,39 @@ namespace Command;
 
 class LogRequestCommand extends Base\KernelCommand implements PubApi\Command
 {
+    private $message = null;
+
     public function execute($meta)
     {
+        $this->buildMessage($meta);
+        $this->writeMessage();
+    }
+
+    public function buildMessage($meta)
+    {
         $request = $meta['request'];
-        $handle = fopen(__DIR__ . '/../../var/logs/request.log', 'a');
-        $json = [
-            'now'    => (new \DateTime())->format('Y-m-d H:i:s.u'),
-            'method' => $request->getMethod(),
-            'uri'    => $request->getUri(),
+
+        $now    = $this->clock->getMicroseconds();
+        $method = $request->getMethod();
+        $uri    = $request->getUri();
+
+        /** @todo Objects\RequestMessage */
+        $this->message = [
+            'now'    => $now,
+            'method' => $method,
+            'uri'    => $uri,
         ];
-        fwrite($handle, json_encode($json) . "\n");
+    }
+
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    public function writeMessage()
+    {
+        $handle = fopen(__DIR__ . '/../../var/logs/request.log', 'a');
+        fwrite($handle, json_encode($this->getMessage()) . "\n");
         fclose($handle);
     }
 }

@@ -32,15 +32,15 @@ class HttpKernel
 
         $this->router->protectRouteWith(new Security());
 
-        $this->attach('request_received', new StoreRequestCommand());
-        $this->attach('request_received', new LogRequestCommand());
-        $this->attach('response_sent', new PrintResponseCommand());
-        $this->attach('response_sent', new LogResponseCommand());
+        $this->attach('request_received', StoreRequestCommand::class);
+        $this->attach('request_received', LogRequestCommand::class);
+        $this->attach('response_sent', PrintResponseCommand::class);
+        $this->attach('response_sent', LogResponseCommand::class);
     }
 
-    public function attach($event, $command)
+    public function attach($event, $commandClass)
     {
-        $this->dispatcher->attach($event, $command);
+        $this->dispatcher->attach($event, $commandClass);
     }
 
     /** @todo move events out from here */

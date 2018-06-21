@@ -6,7 +6,12 @@
             "email": "sensorario@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "phpunit/phpunit": "^7.2"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
     "autoload": {
         "psr-4": {
             "": ["src"]
