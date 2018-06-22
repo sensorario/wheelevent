@@ -6,6 +6,7 @@ use Command\LogRequestCommand;
 use Command\LogResponseCommand;
 use Command\PrintResponseCommand;
 use Command\StoreRequestCommand;
+use Objects\Config;
 use Request\Request;
 use Response\PubApi\GenericResponse;
 
@@ -28,7 +29,7 @@ class HttpKernel
     public function __construct()
     {
         $this->dispatcher = new Dispatcher($this);
-        $this->router = new Router();
+        $this->router = new Router(new Config());
 
         $this->router->protectRouteWith(new Security());
 

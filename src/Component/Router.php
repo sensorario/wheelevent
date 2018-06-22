@@ -2,18 +2,26 @@
 
 namespace Component;
 
-use Response\ClientError;
+use Objects\Config;
 use Objects\Route;
+use Response\ClientError;
 
 class Router
 {
     private $security;
 
-    private $validator;
+    private $config;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
 
     public function controller($request)
     {
-        $uris = require __DIR__ . '/../../config/router.php';
+        $uris = $this->config->getRoutes();
+
+        $method = $request->getMethod();
 
         foreach ($uris as $route) {
             if ($route['path'] === $request->getUri()) {
@@ -22,8 +30,8 @@ class Router
                 }
 
                 $controller = new $route['controller']();
-                if (method_exists($controller, $request->getMethod())) {
-                    return $controller->{$request->getMethod()}($request);
+                if (method_exists($controller, $method)) {
+                    return $controller->{$method}($request);
                 }
             }
         }
@@ -34,10 +42,5 @@ class Router
     public function protectRouteWith(Security $security)
     {
         $this->security = $security;
-    }
-
-    public function validateClientWith(Validator $validator)
-    {
-        $this->validator = $validator;
     }
 }
