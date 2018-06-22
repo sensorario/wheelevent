@@ -26,4 +26,6 @@ abstract class KernelCommand
     {
         return $this->dispatcher->getKernel();
     }
+
+    abstract public function execute($meta);
 }

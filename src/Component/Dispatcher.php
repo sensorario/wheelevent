@@ -22,7 +22,9 @@ class Dispatcher
 
     public function dispatch($event, $meta)
     {
-        if (!isset($this->watcher[$event])) { return; }
+        if (!isset($this->watcher[$event])) {
+            return false;
+        }
 
         foreach ($this->watcher[$event] as $commandClass) {
             $observer = new $commandClass(
@@ -32,10 +34,17 @@ class Dispatcher
             $observer->setKernel($this);
             $observer->execute($meta);
         }
+
+        return true;
     }
 
     public function getKernel()
     {
         return $this->kernel;
+    }
+
+    public function eventsFor(string $eventName)
+    {
+        return $this->watcher[$eventName];
     }
 }
