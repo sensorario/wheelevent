@@ -17,7 +17,7 @@ class PrintResponseCommand extends Base\KernelCommand implements PubApi\Command
         $response = $router->controller($request);
         http_response_code ($response->getHttpStatusCode());
 
-        $this->dispatcher->getKernel()->setResponse($response);
+        $this->app->getKernel()->setResponse($response);
 
         echo $response->getContent();
     }

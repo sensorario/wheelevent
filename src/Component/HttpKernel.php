@@ -22,13 +22,13 @@ class HttpKernel
 
     private $response;
 
-    private $dispatcher;
+    private $app;
 
     private $router;
 
     public function __construct()
     {
-        $this->dispatcher = new Dispatcher($this);
+        $this->app = new Application($this);
         $this->router = new Router(new Config());
 
         $this->router->protectRouteWith(new Security());
@@ -41,7 +41,7 @@ class HttpKernel
 
     public function attach($event, $commandClass)
     {
-        $this->dispatcher->attach($event, $commandClass);
+        $this->app->attach($event, $commandClass);
     }
 
     /** @todo move events out from here */
@@ -50,8 +50,8 @@ class HttpKernel
     public function run(Request $request)
     {
         /** @todo store ordered lifecicle events */
-        $this->dispatcher->dispatch('request_received', ['request' => $request]);
-        $this->dispatcher->dispatch('response_sent', []);
+        $this->app->dispatch('request_received', ['request' => $request]);
+        $this->app->dispatch('response_sent', []);
     }
 
     public function setRequest(Request $request)

@@ -1,8 +1,8 @@
 <?php
 
-use Component\Dispatcher;
+use Component\Application;
 
-class DispatcherTest extends PHPUnit\Framework\TestCase
+class ApplicationTest extends PHPUnit\Framework\TestCase
 {
     public function testShouldInteractWithKernel()
     {
@@ -11,13 +11,13 @@ class DispatcherTest extends PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $dispatcher = new Dispatcher(
+        $app = new Application(
             $this->kernel
         );
 
         $this->assertSame(
             $this->kernel,
-            $dispatcher->getKernel()
+            $app->getKernel()
         );
     }
 
@@ -28,11 +28,11 @@ class DispatcherTest extends PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $dispatcher = new Dispatcher(
+        $app = new Application(
             $this->kernel
         );
 
-        $dispatcher->attach('event.name', Command\FooCommand::class);
+        $app->attach('event.name', Command\FooCommand::class);
 
         $expectedCommands = [
             Command\FooCommand::class
@@ -40,39 +40,39 @@ class DispatcherTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals(
             $expectedCommands,
-            $dispatcher->eventsFor('event.name')
+            $app->eventsFor('event.name')
         );
     }
 
-    public function testShouldDispatchEvents()
+    public function testDispatchActionReturnTrueWheneverCommandsAreAttachedToAnEvent()
     {
         $this->kernel = $this
             ->getMockBuilder('Component\HttpKernel')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $dispatcher = new Dispatcher(
+        $app = new Application(
             $this->kernel
         );
 
-        $dispatcher->attach('event.name', Command\FooCommand::class);
+        $app->attach('event.name', Command\FooCommand::class);
 
-        $result = $dispatcher->dispatch('event.name', $meta = [ 'foo' => 'bar' ]);
+        $result = $app->dispatch('event.name', $meta = [ 'foo' => 'bar' ]);
         $this->assertEquals(true, $result);
     }
 
-    public function testShouldNotDispatchEvents()
+    public function testDispatchActionReturnFalseWheneverNoCommandsAreAttachedToAnEvent()
     {
         $this->kernel = $this
             ->getMockBuilder('Component\HttpKernel')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $dispatcher = new Dispatcher(
+        $app = new Application(
             $this->kernel
         );
 
-        $result = $dispatcher->dispatch('event.name', $meta = [ 'foo' => 'bar' ]);
+        $result = $app->dispatch('event.name', $meta = [ 'foo' => 'bar' ]);
         $this->assertEquals(false, $result);
     }
 }

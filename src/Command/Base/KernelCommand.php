@@ -2,12 +2,12 @@
 
 namespace Command\Base;
 
-use Component\Dispatcher;
+use Component\Application;
 use Component\Clock;
 
 abstract class KernelCommand
 {
-    protected $dispatcher;
+    protected $app;
 
     protected $clock;
 
@@ -17,14 +17,20 @@ abstract class KernelCommand
         $this->clock = $clock;
     }
 
-    public function setKernel(Dispatcher $dispatcher)
+    public function setKernel(Application $app)
     {
-        $this->dispatcher = $dispatcher;
+        $this->app = $app;
     }
 
     public function getKernel()
     {
-        return $this->dispatcher->getKernel();
+        if (!$this->app) {
+            throw new \RuntimeException(
+                'Oops! App Kernel is not defined'
+            );
+        }
+
+        return $this->app->getKernel();
     }
 
     abstract public function execute($meta);

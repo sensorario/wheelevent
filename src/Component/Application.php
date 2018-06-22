@@ -4,7 +4,7 @@ namespace Component;
 
 use Command\PubApi\Command;
 
-class Dispatcher
+class Application
 {
     private $watcher = [];
 
