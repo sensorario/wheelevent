@@ -11,9 +11,8 @@ class ApplicationTest extends PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $app = new Application(
-            $this->kernel
-        );
+        $app = new Application();
+        $app->setKernel($this->kernel);
 
         $this->assertSame(
             $this->kernel,
@@ -28,9 +27,8 @@ class ApplicationTest extends PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $app = new Application(
-            $this->kernel
-        );
+        $app = new Application();
+        $app->setKernel($this->kernel);
 
         $app->attach('event.name', Command\FooCommand::class);
 

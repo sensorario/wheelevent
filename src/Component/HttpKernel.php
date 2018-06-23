@@ -26,9 +26,11 @@ class HttpKernel
 
     private $router;
 
-    public function __construct()
+    public function __construct(Application $app)
     {
-        $this->app = new Application($this);
+        $this->app = $app;
+        $this->app->setKernel($this);
+
         $this->router = new Router(new Config());
 
         $this->router->protectRouteWith(new Security());
@@ -44,12 +46,8 @@ class HttpKernel
         $this->app->attach($event, $commandClass);
     }
 
-    /** @todo move events out from here */
-    /** @todo define input events */
-    /** @todo define output events */
     public function run(Request $request)
     {
-        /** @todo store ordered lifecicle events */
         $this->app->dispatch('request_received', ['request' => $request]);
         $this->app->dispatch('response_sent', []);
     }

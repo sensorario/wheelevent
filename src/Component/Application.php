@@ -10,7 +10,7 @@ class Application
 
     private $kernel;
 
-    public function __construct(HttpKernel $kernel)
+    public function setKernel(HttpKernel $kernel)
     {
         $this->kernel = $kernel;
     }
