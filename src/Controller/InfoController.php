@@ -9,8 +9,7 @@ class InfoController
     public function get()
     {
         return new Response([
-            'class' => __CLASS__,
-            'method' => __METHOD__,
+            'author' => 'Simone Gentili <sensorario@gmail.com>',
         ], 200);
     }
 }
