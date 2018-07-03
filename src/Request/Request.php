@@ -8,10 +8,14 @@ class Request
 
     private $method;
 
-    public function __construct()
+    public function __construct(array $params = [])
     {
-        $this->uri    = $_SERVER['REQUEST_URI'];
-        $this->method = $_SERVER['REQUEST_METHOD'];
+        $server = $params === []
+            ? $_SERVER
+            : $params;
+
+        $this->uri    = $server['REQUEST_URI'];
+        $this->method = $server['REQUEST_METHOD'];
     }
 
     public function getUri()
