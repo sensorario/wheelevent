@@ -52,4 +52,4 @@
 
 ## Get Protected route:
 
-> curl http://localhost:8001/protected -H 'Authorization: Wheel Value'
+> curl http://localhost:8001/protected -H 'Authorization: |#vtfsobnf#;#benjo#-#qbttxpse#;#qbttxpse#~'
