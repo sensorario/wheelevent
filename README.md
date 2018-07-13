@@ -52,6 +52,21 @@
 
 ## Get Protected route:
 
-> curl -v localhost:8001/login -d '{"username":"admin","password":"password"}'
+### Login
+
+> POST /login
+> {
+>   "username":"admin",
+>   "password":"password"
+> }
+
 < HTTP/1.1 200 OK
-{"token":"|#vtfsobnf#;#benjo#-#qbttxpse#;#qbttxpse#-#bvuifoujdbufe#;usvf~"}
+< {
+<   "token":"|#vtfsobnf#;#benjo#-#qbttxpse#;#qbttxpse#-#bvuifoujdbufe#;usvf~"
+< }
+
+### Logout
+
+> GET /protected
+> Authorization: |#vtfsobnf#;#benjo#-#qbttxpse#;#qbttxpse#-#bvuifoujdbufe#;usvf~
+< HTTP/1.1 200 OK
