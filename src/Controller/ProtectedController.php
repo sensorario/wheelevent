@@ -13,12 +13,4 @@ class ProtectedController
             'method' => __METHOD__,
         ], 200);
     }
-
-    public function post()
-    {
-        return new Response([
-            'class' => __CLASS__,
-            'method' => __METHOD__,
-        ], 200);
-    }
 }
