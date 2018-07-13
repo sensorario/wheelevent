@@ -20,7 +20,6 @@ class LogRequestCommand extends Base\KernelCommand implements PubApi\Command
         $method = $request->getMethod();
         $uri    = $request->getUri();
 
-        /** @todo Objects\RequestMessage */
         $this->message = [
             'now'    => $now,
             'method' => $method,

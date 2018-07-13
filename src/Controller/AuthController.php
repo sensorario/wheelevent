@@ -10,14 +10,9 @@ class AuthController
     public function post(Request $request)
     {
         if (
-            /** @todo detect if credentials are valid */
             $request->getJson()->username == 'admin'
             && $request->getJson()->password == 'password'
         ) {
-            /** @todo create cripted token */
-            /** @todo define some different strategies */
-
-            /** @todo add field to token */
             $tokenObject = $request->getJson();
             $tokenObject->authenticated = true;
 

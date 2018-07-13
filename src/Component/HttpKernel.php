@@ -10,7 +10,6 @@ use Objects\Config;
 use Request\Request;
 use Response\PubApi\GenericResponse;
 
-/** @todo rename to httpflow */
 class HttpKernel
 {
     private static $events = [
