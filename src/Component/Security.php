@@ -18,8 +18,8 @@ class Security
         $stringa = '';
         for ($i = 0; $i < count($ord); $i ++) { $stringa .= chr($ord[$i]); }
         $json = json_decode($stringa);
-        /** @todo nel token bisogna nasconderci un success = true */
-        return $json->username != 'admin';
+
+        return $json->authenticated != true;
     }
 
     public function headersOk()

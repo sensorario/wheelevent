@@ -16,7 +16,12 @@ class AuthController
         ) {
             /** @todo create cripted token */
             /** @todo define some different strategies */
-            $json = json_encode($request->getJson());
+
+            /** @todo add field to token */
+            $tokenObject = $request->getJson();
+            $tokenObject->authenticated = true;
+
+            $json = json_encode($tokenObject);
             $ordCollection = [];
             for ($i = 0; $i < strlen($json); $i++) {
                 $ordCollection[] = ord($json[$i]);
