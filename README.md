@@ -54,19 +54,25 @@
 
 ### Login
 
+```
 > POST /login
 > {
 >   "username":"admin",
 >   "password":"password"
 > }
+```
 
+```
 < HTTP/1.1 200 OK
 < {
 <   "token":"|#vtfsobnf#;#benjo#-#qbttxpse#;#qbttxpse#-#bvuifoujdbufe#;usvf~"
 < }
+```
 
 ### Logout
 
+```
 > GET /protected
 > Authorization: |#vtfsobnf#;#benjo#-#qbttxpse#;#qbttxpse#-#bvuifoujdbufe#;usvf~
 < HTTP/1.1 200 OK
+```
