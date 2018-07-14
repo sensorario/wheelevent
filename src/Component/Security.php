@@ -26,10 +26,8 @@ class Security
 
     public function allow(Route $route)
     {
-        return $route->isPublic()
-            || (
-                $route->isProtected()
-                && $this->headersOk()
-            );
+        return
+            $route->isPublic()
+            || ($route->isProtected() && $this->headersOk());
     }
 }
