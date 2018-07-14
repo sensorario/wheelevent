@@ -18,4 +18,9 @@ return [
         'controller' => Controller\ProtectedController::class,
     ],
 
+    [
+        'path' => '/login',
+        'controller' => Controller\AuthController::class,
+    ],
+
 ];
